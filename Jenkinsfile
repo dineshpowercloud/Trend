@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "dockerpowercloud/trend:latest"  // DockerHub repo
+        DOCKER_IMAGE = "dineshpowercloud/trend:latest"  // DockerHub repo
         DOCKER_CREDENTIALS = "dockerhub-creds"          // Jenkins DockerHub credentials
         K8S_MANIFEST_PATH = "k8s"                       // Path to k8s manifests
         KUBECONFIG_CREDENTIALS_ID = "eks-kubeconfig"    // Jenkins secret file for kubeconfig
