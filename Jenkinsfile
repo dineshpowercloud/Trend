@@ -26,16 +26,16 @@ pipeline {
         }
 
         stage('Deploy to EKS') {
-            steps {
-                withEnv(["KUBECONFIG=${env.KUBECONFIG}"]) {
-                    sh '''
-                        echo "Updating deployment with new Docker image..."
-                        kubectl set image -f k8s/deployment.yml trend=${DOCKER_IMAGE}
-                        kubectl rollout status deployment/trend
-                    '''
-                }
-            }
+			steps {
+				withEnv(["KUBECONFIG=/var/lib/jenkins/.kube/config"]) {
+						sh """
+                echo Updating deployment with new Docker image...
+                kubectl set image -f k8s/deployment.yml trend=dineshpowercloud/trend:latest
+                kubectl rollout status -f k8s/deployment.yml
+            """
         }
+    }
+}
     }
 
     post {
