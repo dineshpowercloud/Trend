@@ -26,19 +26,17 @@ pipeline {
             }
         }
 
-        stage('Deploy to EKS') {
-            steps {
-                withCredentials([file(credentialsId: "${KUBECONFIG_CREDENTIALS_ID}", variable: 'KUBECONFIG')]) {
-                    sh """
-                    echo "Updating deployment with new Docker image..."
-                    kubectl set image -f ${K8S_MANIFEST_PATH}/deployment.yml trend=${DOCKER_IMAGE}
-                    kubectl apply -f ${K8S_MANIFEST_PATH}/service.yml
-                    kubectl rollout status -f ${K8S_MANIFEST_PATH}/deployment.yml
-                    """
-                }
-            }
+	stage('Deploy to EKS') {
+    	steps {
+        	withEnv(["KUBECONFIG=/home/ubuntu/.kube/config"]) {
+            	sh '''
+                echo "Updating deployment with new Docker image..."
+                kubectl set image -f k8s/deployment.yml trend=dineshpowercloud/trend:latest
+                kubectl rollout status deployment/trend
+            '''
         }
     }
+}
 
     post {
         success {
