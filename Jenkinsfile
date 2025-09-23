@@ -36,7 +36,8 @@ pipeline {
                     aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER}
                     kubectl apply -f k8s/deployment.yaml
                     kubectl apply -f k8s/service.yaml
-                    kubectl rollout status deployment/trend-app
+                    kubectl rollout restart deployment/trend-app
+		    kubectl rollout status deployment/trend-app
                     '''
                 }
             }
