@@ -2,7 +2,7 @@
 FROM nginx:alpine
 
 # Copy static files to Nginx html directory
-COPY index.html /usr/share/nginx/html/index.html
+COPY . /usr/share/nginx/html/index.html
 
 # Expose port 80 (Nginx default, mapped to 3000 by Kubernetes service)
 EXPOSE 80
