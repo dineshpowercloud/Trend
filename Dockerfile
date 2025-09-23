@@ -1,12 +1,10 @@
 # Use official Nginx image as base
 FROM nginx:alpine
 
-# Copy static files to Nginx html directory
-# COPY . /usr/share/nginx/html/index.html
+# Copy dist folder to Nginx html directory
+COPY dist/ /usr/share/nginx/html/
 
-COPY . .
-
-# Expose port 80 (Nginx default, mapped to 3000 by Kubernetes service)
+# Expose port 80 (mapped to 3000 by Kubernetes service)
 EXPOSE 80
 
 # Start Nginx
